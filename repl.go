@@ -7,6 +7,18 @@ import (
 	"strings"
 )
 
+type cliCommand struct {
+	name        string
+	description string
+	callback    func(cfg *config) error
+}
+
+type config struct {
+	cliCommands map[string]cliCommand
+	nextUrl    string
+	previousUrl string
+}
+
 func cleanInput(text string) []string {
 	text = strings.ToLower(text)
 	words := strings.Fields(text)
@@ -16,10 +28,10 @@ func cleanInput(text string) []string {
 	return words
 }
 
-func startRepl() {
+func startRepl(cfg *config) {
 	reader := bufio.NewScanner(os.Stdin)
 	for {
-		fmt.Print("Pokedex > ")
+		fmt.Println("Pokedex > ")
 		if !reader.Scan() {
 			if err := reader.Err(); err != nil {
 				fmt.Println("Error reading input:", err)
@@ -32,14 +44,15 @@ func startRepl() {
 			continue
 		}
 
-		if command, exists := cliCommands[words[0]]; exists {
-			err := command.callback()
+		if command, exists := cfg.cliCommands[words[0]]; exists {
+			err := command.callback(cfg)
 			if err != nil {
 				fmt.Println("Error:", err)
 			}
 		} else {
 			fmt.Println("Unknown command")
 		}
+		fmt.Println()
 
 	}
 }
