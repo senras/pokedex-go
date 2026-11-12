@@ -12,7 +12,7 @@ import (
 type cliCommand struct {
 	name        string
 	description string
-	callback    func(cfg *config) error
+	callback    func(cfg *config, args ...string) error
 }
 
 type config struct {
@@ -48,7 +48,7 @@ func startRepl(cfg *config) {
 		}
 
 		if command, exists := cfg.cliCommands[words[0]]; exists {
-			err := command.callback(cfg)
+			err := command.callback(cfg, words[1:]...)
 			if err != nil {
 				fmt.Println("Error:", err)
 			}
