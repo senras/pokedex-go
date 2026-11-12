@@ -6,17 +6,13 @@ import (
 	"github.com/senras/pokedex-go/internal/pokeapi"
 )
 
-const (
-	locationAreaURL = "https://pokeapi.co/api/v2/location-area"
-)
-
 func commandMap(cfg *config) error {
 	url := locationAreaURL
 	if cfg.nextUrl != "" {
 		url = cfg.nextUrl
 	}
 
-	locationsResp, err := pokeapi.ListLocationAreas(&url)
+	locationsResp, err := pokeapi.ListLocationAreas(&url, &cfg.cache)
 	if err != nil {
 		return err
 	}
@@ -35,7 +31,7 @@ func commandMapb(cfg *config) error {
 		url = cfg.previousUrl
 	}
 
-	locations, err := pokeapi.ListLocationAreas(&url)
+	locations, err := pokeapi.ListLocationAreas(&url, &cfg.cache)
 	if err != nil {
 		return err
 	}

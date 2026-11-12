@@ -22,5 +22,10 @@ func initConfig(cfg *config) {
 			description: "Displays a map of the Pokemon world (previous if available)",
 			callback:    func(cfg *config) error { return commandMapb(cfg) },
 		},
+		"explore": {
+			name:        "explore",
+			description: "Displays the names of all Pokemon found in a given location",
+			callback:    func(cfg *config) error { return commandExplore(cfg) },
+		},
 	}
 }
