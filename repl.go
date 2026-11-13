@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/senras/pokedex-go/internal/pokeapi"
 	"github.com/senras/pokedex-go/internal/pokecache"
 )
 
@@ -16,10 +17,11 @@ type cliCommand struct {
 }
 
 type config struct {
-	cliCommands map[string]cliCommand
-	nextUrl     string
-	previousUrl string
-	cache       pokecache.Cache
+	cliCommands     map[string]cliCommand
+	nextUrl         string
+	previousUrl     string
+	cache           pokecache.Cache
+	pokemonsCatched map[string]pokeapi.Pokemon
 }
 
 func cleanInput(text string) []string {

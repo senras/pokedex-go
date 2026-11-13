@@ -1,5 +1,7 @@
 package main
 
+import "github.com/senras/pokedex-go/internal/pokeapi"
+
 func initConfig(cfg *config) {
 	cfg.cliCommands = map[string]cliCommand{
 		"exit": {
@@ -27,5 +29,11 @@ func initConfig(cfg *config) {
 			description: "Displays the names of all Pokemon found in a given location",
 			callback:    func(cfg *config, args ...string) error { return commandExplore(cfg, args...) },
 		},
+		"catch": {
+			name:        "catch",
+			description: "Attempts to catch a Pokemon by name",
+			callback:    func(cfg *config, args ...string) error { return commandCatch(cfg, args...) },
+		},
 	}
+	cfg.pokemonsCatched = make(map[string]pokeapi.Pokemon)
 }
