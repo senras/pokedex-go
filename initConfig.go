@@ -34,6 +34,16 @@ func initConfig(cfg *config) {
 			description: "Attempts to catch a Pokemon by name",
 			callback:    func(cfg *config, args ...string) error { return commandCatch(cfg, args...) },
 		},
+		"inspect": {
+			name:        "inspect",
+			description: "Shows detailed information of a catched Pokemon",
+			callback:    func(cfg *config, args ...string) error { return commandInspect(cfg, args...) },
+		},
+		"pokedex": {
+			name:        "pokedex",
+			description: "Shows the names of all the catched Pokemons",
+			callback:    func(cfg *config, args ...string) error { return commandPokedex(cfg) },
+		},
 	}
 	cfg.pokemonsCatched = make(map[string]pokeapi.Pokemon)
 }
